@@ -1,12 +1,11 @@
 package neji
 
-// RecognitionMode implies what mode should be used in the recognition
-type RecognitionMode int
+import recognizer "github.com/shrotavre/neji/dlib-recognizer"
 
 const (
 	// RecognitionModeHOG uses HOG method for recognition
-	RecognitionModeHOG RecognitionMode = 0
+	RecognitionModeHOG int = recognizer.RecognitionModeHOG
 
 	// RecognitionModeCNN uses CNN method for recognition
-	RecognitionModeCNN RecognitionMode = 1
+	RecognitionModeCNN int = recognizer.RecognitionModeCNN
 )

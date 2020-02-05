@@ -14,18 +14,25 @@ import (
 )
 
 const (
+	// RecognitionModeHOG uses HOG method for recognition
 	RecognitionModeHOG int = 0
-	RecognitionModeCNN int = 1
 
+	// RecognitionModeCNN uses CNN method for recognition
+	RecognitionModeCNN int = 1
+)
+
+const(
 	rectLen  = 4
 	descrLen = 128
 	shapeLen = 2
 )
 
+// Recognizer s
 type Recognizer struct {
 	facerec *C.facerec
 }
 
+// Config is configuration applicable to Recognizer
 type Config struct {
 	ModelsPath string
 
@@ -34,14 +41,17 @@ type Config struct {
 	Jittering int
 }
 
+// Face is face representation object
 type Face struct {
 	Rectangle  image.Rectangle
 	Descriptor Descriptor
 	Shapes     []image.Point
 }
 
+// Descriptor is array of face's feature vectors
 type Descriptor [128]float32
 
+// NewRecognizer will initialize new Recognizer instance
 func NewRecognizer(cfg *Config) (rec *Recognizer, err error) {
 	cModelDir := C.CString(cfg.ModelsPath)
 	defer func() {

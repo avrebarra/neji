@@ -4,8 +4,8 @@ import recognizer "github.com/shrotavre/neji/dlib-recognizer"
 
 // Recognizer is compact face recognition instance working over dlib recognition system
 type Recognizer struct {
+	R    *recognizer.Recognizer
 	mode int
-	rec  *recognizer.Recognizer
 }
 
 // Face is recognized faces object
@@ -15,7 +15,7 @@ type Face struct {
 
 // RecognizeFaces will scan and recognize faces found in a image data
 func (n *Recognizer) RecognizeFaces(imgData []byte, maxFaces int) (rfs []Face, err error) {
-	faces, err := n.rec.Recognize(imgData, maxFaces, n.mode)
+	faces, err := n.R.Recognize(imgData, maxFaces, n.mode)
 
 	rfs = make([]Face, len(faces))
 	for i, f := range faces {
@@ -23,6 +23,14 @@ func (n *Recognizer) RecognizeFaces(imgData []byte, maxFaces int) (rfs []Face, e
 	}
 
 	return
+}
+
+// Close will close and clear recognizer's occupied resources
+func (n *Recognizer) Close() error {
+	n.R.Close()
+	n.R = nil
+
+	return nil
 }
 
 // NewRecognizer creates new NewRecognizer instance
@@ -38,7 +46,7 @@ func NewRecognizer(modelsDir string, mode int) (*Recognizer, error) {
 	}
 
 	return &Recognizer{
-		rec:  reco,
+		R:    reco,
 		mode: mode,
 	}, nil
 }

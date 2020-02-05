@@ -24,6 +24,8 @@ func TestRecognize(t *testing.T) {
 		// act
 		faces, err := n.RecognizeFaces(imgData, 10)
 
+		n.Close()
+
 		// assert
 		if err != nil {
 			t.Error("error recognizing faces")

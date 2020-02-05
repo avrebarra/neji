@@ -26,8 +26,7 @@ func (n *Recognizer) RecognizeFaces(imgData []byte, maxFaces int) (rfs []Face, e
 }
 
 // NewRecognizer creates new NewRecognizer instance
-func NewRecognizer(modelsDir string) (*Recognizer, error) {
-	recognitionMode := 0
+func NewRecognizer(modelsDir string, mode RecognitionMode) (*Recognizer, error) {
 	c := &recognizer.Config{
 		ModelsPath: modelsDir,
 	}
@@ -40,6 +39,6 @@ func NewRecognizer(modelsDir string) (*Recognizer, error) {
 
 	return &Recognizer{
 		rec:  reco,
-		mode: recognitionMode,
+		mode: int(mode),
 	}, nil
 }

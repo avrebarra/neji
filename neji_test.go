@@ -9,7 +9,7 @@ import (
 func TestRecognize(t *testing.T) {
 	t.Run("ok", func(t *testing.T) {
 		// arrange
-		n, err := neji.NewRecognizer("./models")
+		n, err := neji.NewRecognizer("./models", neji.RecognitionModeCNN)
 		imgData, err := ioutil.ReadFile("./fixtures/hinata.jpeg")
 		if err != nil {
 			t.Error("failed loading image test file")
